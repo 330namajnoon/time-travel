@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import './App.css'
-import { GameEngine } from 'sm-game-engine'
+import { Asset, GameEngine } from 'sm-game-engine'
 import HomeScene from './Engine/Scenes/Home.scene'
+import { SERVER_URL } from './env';
 
 function App() {
 
@@ -10,12 +11,15 @@ function App() {
       canvas: window.document.createElement("canvas"),
       width: window.innerWidth,
       heigth: window.innerHeight,
-      root: window.document.getElementById("engine") as HTMLDivElement 
+      root: window.document.getElementById("engine") as HTMLDivElement
     });
 
     gameEngine.start(
-      [],
-      [{name:"home", scene: HomeScene}],
+      [
+        new Asset("back01", "image",SERVER_URL + "/Assets/Sprites/background01.jpeg"),
+        new Asset("spaceShip", "image",SERVER_URL + "/Assets/Sprites/space-ship.png")
+      ],
+      [{ name: "home", scene: HomeScene }],
       (error) => {
         if (!error) {
           gameEngine.scenes.render("home");
